@@ -16,7 +16,7 @@ function Boards({state}) {
         <CssBaseline />
         <Header user={state.user.username}/>
           <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
-          <Box sx={{justifyContent:'flex-end', display:"flex"}}>
+          <Box sx={{justifyContent:'flex-end', display:"flex", marginBottom:"2em"}}>
           <Button variant="outlined">New</Button>
           </Box>
           <Container>
