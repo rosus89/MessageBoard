@@ -1,15 +1,11 @@
-
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Loading from '../loading';
-import Header from './header'
-
-
-
-
+import Header from '../../shared/header';
+import Topic from './topic';
+import Button from '@mui/material/Button';
 
 
 function Boards({state}) {
@@ -19,36 +15,19 @@ function Boards({state}) {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Header user={state.user.username}/>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
           <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                    content
-                </Paper>
-              </Grid>
+          <Box sx={{justifyContent:'flex-end', display:"flex"}}>
+          <Button variant="outlined">New</Button>
+          </Box>
+          <Container>
+            <Grid container spacing={3} xs={12}>
+                <Topic title="Title" author="author" created={new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }/>
+                <Topic title="Title" author="author" created={new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }/>
             </Grid>
+            </Container>
           </Container>
         </Box>
-      </Box>
+
      :
     <Loading />
   )
