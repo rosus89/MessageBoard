@@ -1,10 +1,9 @@
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+
+
 
 
 function Header({user}) {
@@ -24,15 +23,10 @@ function Header({user}) {
           >
             Boards
           </Typography>
-          <Typography>
+          <Typography mx={2}>
             {user}
           </Typography>
-          <Button variant="contained">Log Out</Button>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button variant="contained" color="success">Sign Out</Button>
         </Toolbar>
       </AppBar>
     )
