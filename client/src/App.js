@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useReducer, useEffect } from 'react';
 import {reducer, initialState} from './store';
@@ -15,10 +14,10 @@ function App() {
 
   useEffect(() => {
     if (localStorage.token) {
-      dispatch({type:"setUser", payload:jwtDecode(localStorage.token)})
-      
+      dispatch({type:"setUser", payload:jwtDecode(localStorage.token)})   
     }
   }, [])
+
 
 
   
