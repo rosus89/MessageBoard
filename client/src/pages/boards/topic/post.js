@@ -1,17 +1,22 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
-// import NavigationIcon from '@mui/icons-material/Navigation';
 
-export default function Post () {
+export default function Post ({id, user,created,value}) {
+
+    //TODO get current user
+    const currentUser = "user1"
+    const extUser = currentUser!==user
     return(
-    <Box>
+    <Box sx={{ display:'flex', width:'100%', flexDirection: extUser &&'row-reverse'}} >
 
-    <Fab color="primary" variant="extended">
-    {/* <NavigationIcon sx={{ mr: 1 }} /> */}
-        Username
+    <Fab color= {extUser ? "error" : "primary" } variant="extended">
+        {user}
     </Fab>
 
-    message
+    <Box component="span" sx={{ p: 1, border: '1px solid #eeeeee', width:'100%' ,marginLeft:'1em', display:'flex', justifyContent:'space-between', alignItems:'center', background:'#FFFFEE'  }}>
+        <Typography>{value}</Typography>
+        <Typography variant="caption">{created}</Typography>
+    </Box>
     </Box>
     )
 
