@@ -24,7 +24,7 @@ cd ..
 ## *Setup*
 Replace `database address` and`token secret` 
   ```shell
-  cp .env_ .env
+> .env
 echo -e "DATABASE = database address\nTOKEN_SECRET=token secret" >> .env
 ``` 
 
