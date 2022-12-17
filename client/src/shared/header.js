@@ -26,7 +26,7 @@ function Header({user}) {
             color="inherit"
             noWrap
             sx={{ flexGrow: 1 }}
-          >
+          > 
             Boards
           </Typography>
           <Typography mx={2}>

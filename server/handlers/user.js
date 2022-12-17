@@ -52,7 +52,6 @@ exports.signIn  = async (req, res, next) => {
         token
       });
     } else {
-      console.log("Wrong password")
       return next({
         status: 400,
         message: "Invalid Email/Password."

@@ -3,7 +3,6 @@ import { useReducer, useEffect } from 'react';
 import {reducer, initialState} from './store';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
-import Board from './pages/board';
 import Boards from './pages/boards';
 import ProtectedRoutes from './hooks/Protected';
 import jwtDecode from "jwt-decode";
@@ -30,7 +29,6 @@ function App() {
           </Route>
           <Route path='/signin' element={<SignIn dispatch={dispatch}/>}/>
           <Route path='/signup' element={<SignUp dispatch={dispatch}/>}/>
-          <Route path='/board' element={<Board state={state}/>}/>
         </Routes>
   </BrowserRouter>
   
