@@ -4,29 +4,25 @@ import {Accordion, AccordionSummary, Typography, FormControl, InputAdornment,Inp
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function Topic() {
-  const [expanded, setExpanded] = React.useState(false);
+export default function Topic({id, title, expanded, setExpanded, created, posts}) {
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
   return (
-    <div>
-      {/* TODO: swiching expanding panels */}
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded === id} onChange={handleChange(id)}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
+          aria-controls={{id} + "-content"}
+          id={{id} + "-header"}
         >
           <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            Topic
+            {title}
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>author or number of messages</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>{created}</Typography>
         </AccordionSummary>
-       <Posts />
-       <FormControl fullWidth sx={{ xs: 12 }} variant="outlined">
+       <Posts posts={posts} />
+       <FormControl fullWidth sx={{ xs: 12 }} variant="outlined" >
           <InputLabel htmlFor="messageInput">Message</InputLabel>
           <OutlinedInput
             id="Message Input"
@@ -42,11 +38,5 @@ export default function Topic() {
           />
         </FormControl>
       </Accordion>
-      
-
-
-
-
-    </div>
   );
 }
