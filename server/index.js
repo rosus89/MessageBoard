@@ -9,12 +9,16 @@ const cors = require("cors")
 
 // routes
 const userRoute = require('./routes/users')
+const boardRoute = require('./routes/board')
+const postRoute = require('./routes/post') 
 
 //app use
 const app = express();
 app.use(express.json())
 app.use(cors());
 app.use('/user', userRoute)
+app.use('/board', boardRoute)
+app.use('/post', postRoute)
 
 // websockets
 const server = http.createServer(app);

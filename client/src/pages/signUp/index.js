@@ -25,7 +25,7 @@ export default function SignUp({dispatch}) {
       email: data.get('email'),
       password: data.get('password'),
   }
-    await apiAuth("signup",dispatch, sentData)
+    await apiAuth("user/signup",dispatch, sentData)
     navigate("/")
   }
 

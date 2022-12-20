@@ -1,5 +1,6 @@
 import {Modal, Box,Typography, TextField, Button} from '@mui/material'
-
+import {apiBoard} from '../../../api'
+import {useState} from 'react'
 
 const modalStyle = {
   position: 'absolute',
@@ -14,8 +15,10 @@ const modalStyle = {
   flexDirection:'column'
 };
 
-export default function AddTopicModal({handleClose, modalOpen}) {
+export default function AddTopicModal({handleClose, modalOpen, dispatch}) {
+const [value , setValue] = useState("")
 
+const handleSubmit = () => apiBoard("board/create",dispatch, {title:value} )
 
   return (
       <Modal
@@ -28,9 +31,9 @@ export default function AddTopicModal({handleClose, modalOpen}) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             New Topic
           </Typography>
-          <TextField sx={{ my: 2 }}  label="Topic" variant="outlined" />
+          <TextField sx={{ my: 2 }} onChange={(e) =>setValue(e.target.value)} value={value} label="Topic" variant="outlined" />
           <Box sx={{display:'flex', justifyContent:'space-between'}}>
-            <Button variant="contained" color="success">Add</Button>
+            <Button onClick={handleSubmit}variant="contained" color="success">Add</Button>
             <Button onClick={handleClose} variant="outlined" color="error">Cancel</Button>
           </Box>
         </Box>

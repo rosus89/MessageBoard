@@ -1,11 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 
-export default function Post ({id, user,created,value}) {
+export default function Post ({id, user,created,value,currentUser}) {
 
-    //TODO get current user
-    const currentUser = "user1"
-    const extUser = currentUser!==user
+    const extUser = currentUser.username!==user
     return(
     <Box sx={{ display:'flex', width:'100%', flexDirection: extUser &&'row-reverse'}} >
 

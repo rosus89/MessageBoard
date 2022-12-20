@@ -13,28 +13,36 @@ const boardSchema = new Schema({
     },
     updated: {
         type: Date,
-        required:true
     },
     owner: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        immutable: true
+        type: Schema.Types.ObjectId, ref:'User',
     },
     posts: [
         { type: Schema.Types.ObjectId, ref: 'Post' }
     ]
 })
 
-boardSchema.pre("remove", async function(next) {
-    try {
+// boardSchema.pre("remove", async function(next) {
+//     try {
         
-      let user = await User.findById(this.user);
-      user.messages.remove(this.id);
-      await user.save();
-      return next();
-    } catch (err) {
-      return next(err);
-    }
-  });
+//       let user = await User.findById(this.user);
+//       user.messages.remove(this.id);
+//       await user.save();
+//       return next();
+//     } catch (err) {
+//       return next(err);
+//     }
+//   });
+//   boardSchema.pre("save", async function(next) {
+//     try {
+        
+//       let user = await User.findById(this.user);
+//       user.messages.remove(this.id);
+//       await user.save();
+//       return next();
+//     } catch (err) {
+//       return next(err);
+//     }
+//   });
 
 module.exports = model("Board", boardSchema)

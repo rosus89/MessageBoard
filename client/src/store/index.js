@@ -4,15 +4,29 @@ const initialState= {
 
 
 function reducer (state, action) {
+    // const asd = async () => 
+
+    
     switch (action.type) {
-        case 'createBoard':
+        case 'board/get':
+            return {
+            ...state,
+            boards: action.payload
+            }  
+        case 'board/create':
             return {
                 ...state
             }
-        case 'createPost':
+        case 'post/create':
             return {
                 ...state,
+                boards:{...state.boards, posts: action.payload}
             }
+        case 'post/get':
+            return {
+                ...state,
+                boards: {...state.boards, posts: action.payload} 
+            }      
         case 'setUser':
             return {
                 ...state,

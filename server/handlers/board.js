@@ -1,9 +1,32 @@
 const db = require('../db')
+// Board create
 
-exports.createBoard  = async (req, res, next) => {
+
+exports.get = async (req,res) => {
+  try {
+    const boards = await db.Board.find({}).populate({
+      path: 'posts',
+      populate: {
+        path: 'user'
+      }
+    })
+    return res.status(200).json(boards)
+  }
+  catch (err){
+    return res.status(400).json(err)
+  }
+}
+
+exports.create = async (req, res, next) => {
     try{
-        let user = await db.Board.create({...req.body, created:Date.now(), updated:Date.now()});
-        return res.status(200).json(true)
+        let board = await db.Board.create({
+          ...req.body, 
+          created:Date.now(),
+          // add id of creator
+          // owner: req.params.id
+          })
+          const boards = await db.Board.find({})
+        return res.status(200).json(boards)
     }    
     catch (err) {
       if (err.code === 11000) {
@@ -14,5 +37,5 @@ exports.createBoard  = async (req, res, next) => {
         message: err.message
       });
     }
-
 }
+

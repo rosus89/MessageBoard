@@ -1,15 +1,15 @@
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Post from './post';
 
-export default function Posts({posts}) {
-
+export default function Posts({posts, currentUser}) {
 return (
-  <>
-  {posts.map((topic) =>    
-    <AccordionDetails>
-      <Post key={topic.id} id={topic.id} user={topic.user} created={topic.created} value={topic.value} />
-    </AccordionDetails>
+  <AccordionDetails>
+  {posts.map((post) =>    
+
+    
+      <Post key={post._id} id={post._id} user={post.user.username} created={post.created} value={post.value} currentUser={currentUser} />
+    
     )}
-  </>
+  </AccordionDetails>
 )
 }

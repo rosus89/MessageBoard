@@ -1,11 +1,20 @@
-import * as React from 'react';
 import Posts from './posts'
 import {Accordion, AccordionSummary, Typography, FormControl, InputAdornment,InputLabel, OutlinedInput, Button } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SendIcon from '@mui/icons-material/Send';
+import { apiPost } from '../../../api';
+import { useState} from 'react'
 
-export default function Topic({id, title, expanded, setExpanded, created, posts}) {
+export default function Topic({id, title, expanded, setExpanded, created, posts, currentUser}) {
 
+
+
+  const [value, setValue] = useState("")
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await apiPost("post/create", {value:value, board:id, user:currentUser._id})
+    setValue("")
+  }
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -21,15 +30,17 @@ export default function Topic({id, title, expanded, setExpanded, created, posts}
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>{created}</Typography>
         </AccordionSummary>
-       <Posts posts={posts} />
-       <FormControl fullWidth sx={{ xs: 12 }} variant="outlined" >
+        {/* ------POSTS HERE--------- */}
+       <Posts posts= {posts} currentUser={currentUser}/>
+       <FormControl  fullWidth sx={{ xs: 12 }} variant="outlined" >
           <InputLabel htmlFor="messageInput">Message</InputLabel>
           <OutlinedInput
-            id="Message Input"
-    
+            onChange={e=>setValue(e.target.value)}
+            id="message"
+            value={value}
             endAdornment={
               <InputAdornment position="end">
-                <Button variant="contained" endIcon={<SendIcon />}>
+                <Button onClick={handleSubmit} type="submit" variant="contained" endIcon={<SendIcon />}>
                     Send
                   </Button>
               </InputAdornment>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -6,33 +6,30 @@ import Loading from '../loading';
 import Header from '../../shared/header';
 import Topic from './topic';
 import Button from '@mui/material/Button';
-import AddTopicModal from './modal'
+import AddTopicModal from './modal';
+import {apiGetBoards} from '../../api'
 
 
-function Boards({state}) {
+function Boards({state, dispatch}) {
   const [expanded, setExpanded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
 
-//temporary data
- const genDate = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) 
-  const boards= [
-    {id:"1",title:"Engineering",created:genDate, owner:"user1",
-                            posts:[
-                                      {id:1,user:"user1",created:genDate, value:"Hello!"},
-                                      {id:2,user:"user2",created:genDate, value:"How are you?"}
-                                  ]},
-    {id:"2", title:"Design", created:genDate, owner:"user2",
-                           posts:[
-                                  {id:1,user:"user1",created:genDate, value:"Hello!"},
-                                  {id:2,user:"user2",created:genDate, value:"How are you?"}
-                                ]}
-  ]
-// end of temporary data
+
+useEffect(() => {
+  
+  const getUpdate = async () =>
+    {
+    const boards = await apiGetBoards('board/get')
+    dispatch({type:boards.route, payload:boards.data})
+    }
+  getUpdate()
+}, [dispatch])
+
 
   return (
-    state.user ? 
+    state.user && state.boards ? 
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         {/* --> Header HERE! <---*/}
@@ -43,20 +40,21 @@ function Boards({state}) {
               <Button variant="outlined" onClick={handleOpen}>New</Button>
             </Box>
             <Container>
-              {boards.map((topic) => <Topic  
-              id={topic.id} 
-              title={topic.title} 
-              created={topic.created}
-              key={topic.id}
-              owner={topic.owner}
-              posts= {topic.posts}
-              setExpanded={setExpanded} 
-              expanded={expanded} 
+              {state.boards.map((topic) => <Topic  
+                  currentUser={state.user}
+                  id={topic._id} 
+                  title={topic.title} 
+                  created={topic.created}
+                  key={topic._id}
+                  owner={topic.owner}
+                  posts= {topic.posts}
+                  setExpanded={setExpanded} 
+                  expanded={expanded} 
               />)}
             </Container>
           </Container>
           {/* MODAL HERE */}
-          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen}/>
+          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen} dispatch={dispatch}/>
         </Box>
      :
     <Loading />

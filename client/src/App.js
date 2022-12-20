@@ -25,7 +25,7 @@ function App() {
   <BrowserRouter>
         <Routes>
           <Route element={<ProtectedRoutes haveToken={localStorage.token ? true : false }/> }> 
-            <Route path='/' element={<Boards state={state}/>}/>
+            <Route path='/' element={<Boards state={state} dispatch={dispatch}/>}/>
           </Route>
           <Route path='/signin' element={<SignIn dispatch={dispatch}/>}/>
           <Route path='/signup' element={<SignUp dispatch={dispatch}/>}/>

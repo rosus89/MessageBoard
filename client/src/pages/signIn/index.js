@@ -13,11 +13,6 @@ import { apiAuth } from '../../api/index.js';
 import { useNavigate } from 'react-router-dom'
 
 
-
-
-
-
-
 export default function SignIn({dispatch}) {
   const navigate = useNavigate();
 
@@ -28,12 +23,10 @@ export default function SignIn({dispatch}) {
       email: data.get('email'),
       password: data.get('password'),
     }
-    await apiAuth("signin",dispatch, sentData)
+    await apiAuth("user/signin",dispatch, sentData)
     navigate("/")
   }
   
-
-
 
 
   return (
