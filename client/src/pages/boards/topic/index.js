@@ -5,15 +5,23 @@ import SendIcon from '@mui/icons-material/Send';
 import { apiPost } from '../../../api';
 import { useState} from 'react'
 
-export default function Topic({id, title, expanded, setExpanded, created, posts, currentUser}) {
 
 
+
+export default function Topic({id, title, expanded, setExpanded, created, posts, currentUser, dispatch}) {
 
   const [value, setValue] = useState("")
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await apiPost("post/create", {value:value, board:id, user:currentUser._id})
+    const postData = await apiPost("post/create", {value:value, board:id, user:currentUser._id})
     setValue("")
+    console.log(postData)
+    // dispatch({type:"post/create", payload:postData})
+    // dispatch({type:"post/create", payload:{value:value, board:id, user:currentUser._id}})
+
+
   }
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);

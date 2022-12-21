@@ -11,7 +11,7 @@ exports.create = async (req, res, next) => {
           const board = await db.Board.findById(req.body.board)
           board.posts.push(post._id);
           await board.save();
-        return res.status(200).json("posted")
+        return res.status(200).json(post)
     }    
     catch (err) {
       console.log(err)

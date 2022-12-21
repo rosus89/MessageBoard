@@ -23,9 +23,19 @@ app.use('/post', postRoute)
 // websockets
 const server = http.createServer(app);
 const io = new Server(server);
+// io.on('connection', (socket) => {
+//   console.log('A client has connected');
+
+//   // Listen for messages from the client
+//   socket.on('message', (message) => {
+//     console.log(message);
+
+//     // Send a message back to the client
+//     socket.emit('message', {data: 'Hello from the server!'});
+//   });
+// });
 
 
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });

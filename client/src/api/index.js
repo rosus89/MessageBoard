@@ -19,30 +19,15 @@ export async function apiAuth(route,dispatch, sentData, ){
     localStorage.setItem("token", data.token);
   }
 
-
-export async function apiBoard(route,dispatch, sentData, ){
-  let token =  localStorage.getItem('token');
-  let response = await fetch(APIhost+route, {...setRequest(token, 'POST'), body:JSON.stringify(sentData)})
-  let data = await response.json();
-    dispatch({type:{route}, payload:data})
-  }
-  
 export async function apiPost(route, sentData ){
   let token =  localStorage.getItem('token');
   let response = await fetch(APIhost+route, {...setRequest(token, 'POST'), body:JSON.stringify(sentData)})
   let data = await response.json();
-  return data
-    // dispatch({type:{route}, payload:data})
-  }
-export async function apiGetPosts(route, sentData ){
-  let token =  localStorage.getItem('token');
-  let response = await fetch(APIhost+route, {...setRequest(token, 'POST'), body:JSON.stringify(sentData)})
-  let data = await response.json();
-  return data
-    // dispatch({type:{route}, payload:data})
+  return ({route,data})
+
   }
   
-export async function apiGetBoards(route){
+export async function apiGet(route){
   let token =  localStorage.getItem('token');
   let response = await fetch(APIhost+route, {...setRequest(token, 'GET')})
   let data = await response.json();

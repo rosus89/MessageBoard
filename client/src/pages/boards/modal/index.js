@@ -1,5 +1,5 @@
 import {Modal, Box,Typography, TextField, Button} from '@mui/material'
-import {apiBoard} from '../../../api'
+import {apiPost} from '../../../api'
 import {useState} from 'react'
 
 const modalStyle = {
@@ -15,10 +15,16 @@ const modalStyle = {
   flexDirection:'column'
 };
 
-export default function AddTopicModal({handleClose, modalOpen, dispatch}) {
+export default function AddTopicModal({handleClose, modalOpen, dispatch, socket}) {
 const [value , setValue] = useState("")
 
-const handleSubmit = () => apiBoard("board/create",dispatch, {title:value} )
+const handleSubmit = async () => {
+  const data = await apiPost("board/create",dispatch, {title:value} )
+  console.log(data)
+  dispatch({type:"board/create", payload:data})
+  // socket.emit('new topic', {data: {title:value}});
+  handleClose()
+}
 
   return (
       <Modal

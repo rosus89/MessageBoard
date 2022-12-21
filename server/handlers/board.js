@@ -22,10 +22,13 @@ exports.create = async (req, res, next) => {
         let board = await db.Board.create({
           ...req.body, 
           created:Date.now(),
-          // add id of creator
-          // owner: req.params.id
           })
-          const boards = await db.Board.find({})
+          const boards = await db.Board.find({}).populate({
+            path: 'posts',
+            populate: {
+              path: 'user'
+            }
+          })
         return res.status(200).json(boards)
     }    
     catch (err) {
