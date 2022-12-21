@@ -7,25 +7,28 @@ import Header from '../../shared/header';
 import Topic from './topic';
 import Button from '@mui/material/Button';
 import AddTopicModal from './modal';
-import {apiGetBoards} from '../../api'
-
+import {apiGet} from '../../api'
+import io from 'socket.io-client';
 
 function Boards({state, dispatch}) {
   const [expanded, setExpanded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+  
+  const socket = io()
+  // socket.emit('message', {data: 'Hello from the client!'});
 
-
-useEffect(() => {
+useEffect(() => { 
   
   const getUpdate = async () =>
     {
-    const boards = await apiGetBoards('board/get')
+    const boards = await apiGet('board/get')
     dispatch({type:boards.route, payload:boards.data})
+    
     }
   getUpdate()
-}, [dispatch])
+},[dispatch])
 
 
   return (
@@ -50,11 +53,12 @@ useEffect(() => {
                   posts= {topic.posts}
                   setExpanded={setExpanded} 
                   expanded={expanded} 
+                  dispatch={dispatch}
               />)}
             </Container>
           </Container>
           {/* MODAL HERE */}
-          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen} dispatch={dispatch}/>
+          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen} dispatch={dispatch} socket={socket}/>
         </Box>
      :
     <Loading />
