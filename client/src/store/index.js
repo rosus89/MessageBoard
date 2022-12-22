@@ -18,29 +18,17 @@ function reducer (state, action) {
                 boards:  [...state.boards,action.payload]
             }
         case 'post/create':
-            //TODO
-            // let board = state.boards.find(element=> element._id = action.payload[0].board)
-            // console.log(board)
-            // const boards = state.boards.map(obj => {
-            //     if (obj._id === board._id) {
-            //       return board;
-            //     }
-            //     return obj;
-            //   });
-
-            // let board = state.boards.find(element=> element._id = action.payload.board)
-            // const boards = state.boards.map(obj => {
-            //     if (obj._id === board) {
-            //       return obj.push(board.value, board.user)
-            //     }
-            //     return obj;
-            //   });
-
-            //replace board ?
+            let boards = state.boards.map(board => {
+                if (board._id === action.payload.board) {
+                  return {...board, posts: [...board.posts, action.payload]};
+                }
+                else return board
+            })
             return {
                 ...state,
-                //  boards: boards
+                boards
             }
+
         case 'post/get':
             return {
                 ...state,

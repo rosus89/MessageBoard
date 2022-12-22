@@ -15,11 +15,12 @@ export default function Topic({id, title, expanded, setExpanded, created, posts,
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+ 
     const postData = await apiPost("post/create", {value:value, board:id, user:currentUser._id})
     setValue("")
-    console.log(postData)
-    // dispatch({type:"post/create", payload:postData})
-    // dispatch({type:"post/create", payload:{value:value, board:id, user:currentUser._id}})
+    console.log(postData.data)
+    dispatch({type:"post/create", payload:postData.data})
+
 
 
   }

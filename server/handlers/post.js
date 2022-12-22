@@ -8,6 +8,7 @@ exports.create = async (req, res, next) => {
           user: req.body.user,
           board: req.body.board
           })
+          post.populate("user")
           const board = await db.Board.findById(req.body.board)
           board.posts.push(post._id);
           await board.save();

@@ -23,12 +23,6 @@ exports.create = async (req, res, next) => {
           ...req.body, 
           created:Date.now(),
           })
-          // const boards = await db.Board.find({}).populate({
-          //   path: 'posts',
-          //   populate: {
-          //     path: 'user'
-          //   }
-          // })
         return res.status(200).json(board)
     }    
     catch (err) {
