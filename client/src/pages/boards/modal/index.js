@@ -15,14 +15,13 @@ const modalStyle = {
   flexDirection:'column'
 };
 
-export default function AddTopicModal({handleClose, modalOpen, dispatch, socket}) {
+export default function AddTopicModal({handleClose, modalOpen, dispatch, userID}) {
 const [value , setValue] = useState("")
 
 const handleSubmit = async () => {
-  const data = await apiPost("board/create",dispatch, {title:value} )
-  console.log(data)
-  dispatch({type:"board/create", payload:data})
-  // socket.emit('new topic', {data: {title:value}});
+  const data = await apiPost("board/create", {title:value, owner:userID} )
+  console.log(data.data)
+  dispatch({type:"board/create", payload:data.data})
   handleClose()
 }
 

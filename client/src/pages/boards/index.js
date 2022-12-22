@@ -8,7 +8,7 @@ import Topic from './topic';
 import Button from '@mui/material/Button';
 import AddTopicModal from './modal';
 import {apiGet} from '../../api'
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 function Boards({state, dispatch}) {
   const [expanded, setExpanded] = useState(false);
@@ -16,7 +16,7 @@ function Boards({state, dispatch}) {
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
   
-  const socket = io()
+  // const socket = io()
   // socket.emit('message', {data: 'Hello from the client!'});
 
 useEffect(() => { 
@@ -58,7 +58,7 @@ useEffect(() => {
             </Container>
           </Container>
           {/* MODAL HERE */}
-          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen} dispatch={dispatch} socket={socket}/>
+          <AddTopicModal  handleClose={handleClose} modalOpen={modalOpen} dispatch={dispatch} userID={state.user._id}/>
         </Box>
      :
     <Loading />

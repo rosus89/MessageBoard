@@ -15,7 +15,7 @@ function reducer (state, action) {
         case 'board/create':
             return {
                 ...state,
-                boards:  action.payload
+                boards:  [...state.boards,action.payload]
             }
         case 'post/create':
             //TODO
